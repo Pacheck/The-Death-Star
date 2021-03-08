@@ -1,11 +1,28 @@
-import React from 'react';
+import { useState, useEffect } from "react";
+import { useApi } from "../../hooks/useApi";
+import { Container } from "./styles";
+import { Person } from "./types";
 
-import { Container } from './styles';
+const People = () => {
+  const [people, setPeople] = useState<Person[]>([]);
+  const fetchData = useApi();
 
-const People: React.FC = () => {
+  const fetchPeopleData = async () => {
+    const response = await fetchData("http://swapi.dev/api/people/");
+    setPeople(response.results);
+  };
+
+  useEffect(() => {
+    fetchPeopleData();
+  }, []);
+
   return (
     <Container>
-      <h1>People</h1>
+      <ul>
+        {people.map((person) => (
+          <li key={person.name}>{person.name}</li>
+        ))}
+      </ul>
     </Container>
   );
 };
