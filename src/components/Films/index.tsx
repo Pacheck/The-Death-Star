@@ -1,31 +1,36 @@
 import { useState, useEffect } from "react";
+
 import { useApi } from "../../hooks/useApi";
 
-import { Container } from "./styles";
 import { Film } from "./types";
+import FilmCard from "../FilmCard";
+import { Container } from "./styles";
 
 const Films = () => {
   const [films, setFilms] = useState<Film[]>([]);
-  const api = useApi();
+  const fetchData = useApi();
 
   const fetchFilmData = async () => {
-    const response = await api("http://swapi.dev/api/films/");
+    const response = await fetchData("http://swapi.dev/api/films/");
     setFilms(response.results);
+    console.log(response.results);
   };
 
   useEffect(() => {
     fetchFilmData();
   }, []);
 
-  console.log(films);
-
   return (
     <Container>
-      <ul>
-        {films.map((film) => (
-          <li key={film.title}>{film.title}</li>
-        ))}
-      </ul>
+      {films.map((film) => (
+        <FilmCard
+          key={film.title}
+          title={film.title}
+          director={film.director}
+          release_date={film.release_date}
+          opening_crawl={film.opening_crawl}
+        />
+      ))}
     </Container>
   );
 };
