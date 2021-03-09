@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useApi } from "../../hooks/useApi";
-import PeopleCard from "../PeopleCard";
+
 import { Container } from "./styles";
 import { Person } from "./types";
+import starWarsLogo from "../../assets/logo/star-wars.svg";
+import CustomCard from "../CustomCard";
 
 const People = () => {
   const [people, setPeople] = useState<Person[]>([]);
@@ -21,11 +23,12 @@ const People = () => {
   return (
     <Container>
       {people.map((person) => (
-        <PeopleCard
-          name={person.name}
-          mass={person.mass}
-          height={person.height}
-          birth_year={person.birth_year}
+        <CustomCard
+          text1={person.name}
+          text2={person.mass}
+          text3={person.height}
+          text4={person.birth_year}
+          imageLogo={starWarsLogo}
         />
       ))}
     </Container>

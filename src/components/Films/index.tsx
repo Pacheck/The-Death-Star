@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import { useApi } from "../../hooks/useApi";
 
 import { Film } from "./types";
-import FilmCard from "../FilmCard";
+import starWarsLogo from "../../assets/logo/star-wars-2.svg";
+
+import CustomCard from "../CustomCard";
 import { Container } from "./styles";
 
 const Films = () => {
@@ -23,12 +25,13 @@ const Films = () => {
   return (
     <Container>
       {films.map((film) => (
-        <FilmCard
+        <CustomCard
           key={film.title}
-          title={film.title}
-          director={film.director}
-          release_date={film.release_date}
-          opening_crawl={film.opening_crawl}
+          text1={film.title}
+          text2={film.director}
+          text3={film.release_date}
+          text4={film.opening_crawl}
+          imageLogo={starWarsLogo}
         />
       ))}
     </Container>
