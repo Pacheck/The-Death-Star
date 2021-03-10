@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useApi } from "../../hooks/useApi";
 
 import { Container } from "./styles";
+import CustomCard from "../CustomCard";
+import imageLogo from "../../assets/ships/ship2.png";
 import { Vehicle } from "./types";
 
 const Vehicles = () => {
@@ -11,19 +13,26 @@ const Vehicles = () => {
   const fetchVehiclesData = async () => {
     const response = await fetchData("http://swapi.dev/api/vehicles/");
     setVehicles(response.results);
+    console.log(response);
   };
 
   useEffect(() => {
     fetchVehiclesData();
   }, []);
+  //name, model, vehicle_class ,cost
 
   return (
     <Container>
-      <ul>
-        {vehicles.map((vehicle) => (
-          <li key={vehicle.name}>{vehicle.name}</li>
-        ))}
-      </ul>
+      {vehicles.map((vehicle) => (
+        <CustomCard
+          key={vehicle.name}
+          text1={vehicle.name}
+          text2={vehicle.model}
+          text3={vehicle.vehicle_class}
+          text4={vehicle.cost_in_credits}
+          imageLogo={imageLogo}
+        />
+      ))}
     </Container>
   );
 };
