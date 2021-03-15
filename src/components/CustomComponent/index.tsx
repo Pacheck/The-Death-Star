@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { useLocation, useParams } from "react-router-dom";
 import { useApi } from "../../hooks/useApi";
 import { v4 as uuidv4 } from "uuid";
 
@@ -21,19 +22,21 @@ const useStyles = makeStyles((theme) =>
 );
 
 const CustomComponent = () => {
-  const [path, setPath] = useState(window.location.pathname);
   const [data, setData] = useState<APIResponse[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const classes = useStyles();
   const fetchData = useApi();
+  const params = useParams();
+  const { pathname } = useLocation();
 
-  const fetchPlanetData = async () => {
+  const classes = useStyles();
+
+  const handleFetchDataFromAPI = async () => {
     setIsLoading(true);
     const response: Response = await fetchData(
-      `http://swapi.dev/api${!path ? "/species" : path}?page=${currentPage}`
+      `${pathname}?page=${currentPage}`
     );
     console.log(response);
     setData(response.results);
@@ -49,9 +52,12 @@ const CustomComponent = () => {
   };
 
   useEffect(() => {
-    fetchPlanetData();
+    handleFetchDataFromAPI();
     console.log({ isLoading });
-  }, [currentPage]);
+    console.log({ params });
+    console.log({ pathname });
+  }, [currentPage, pathname]);
+  ///////// Coloquei o pathname no array de dep, ficar atento
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -29,6 +30,8 @@ const useStyles = makeStyles({
 const DinamicCard = ({ data, imageLogo, isLoading }: PropData) => {
   const [dados, setDados] = useState<Dados>();
   const classes = useStyles();
+
+  const history = useHistory();
 
   const handleViewData = () => {
     setDados({
@@ -61,6 +64,12 @@ const DinamicCard = ({ data, imageLogo, isLoading }: PropData) => {
     });
   };
 
+  const handleNavigateToDetails = () => {
+    const { url } = data;
+    const newURL = url.replace("http://swapi.dev/api", "");
+    history.push(`/details${newURL}`);
+  };
+
   useEffect(() => {
     handleViewData();
   }, []);
@@ -68,7 +77,7 @@ const DinamicCard = ({ data, imageLogo, isLoading }: PropData) => {
   return (
     <>
       {!!dados && (
-        <Card className={classes.root}>
+        <Card className={classes.root} onClick={handleNavigateToDetails}>
           <CardActionArea>
             {isLoading ? (
               <Skeleton
