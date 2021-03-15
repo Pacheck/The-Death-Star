@@ -36,7 +36,7 @@ const CustomComponent = () => {
   const handleFetchDataFromAPI = async () => {
     setIsLoading(true);
     const response: Response = await fetchData(
-      `https://swapi.dev/api${pathname}?page=${currentPage}`
+      `${pathname}?page=${currentPage}`
     );
     console.log(response);
     setData(response.results);
