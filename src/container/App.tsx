@@ -1,12 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Films from "../components/Films";
 import Home from "../components/Home";
-import People from "../components/People";
-import Planets from "../components/Planets";
-import Species from "../components/Species";
-import Starships from "../components/Starships";
-import Vehicles from "../components/Vehicles";
+import CustomComponent from "../components/CustomComponent";
 
 import GlobalStyle from "./globalStyles";
 
@@ -17,12 +12,12 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/films" component={Films} />
-          <Route path="/people" component={People} />
-          <Route path="/planets" component={Planets} />
-          <Route path="/species" component={Species} />
-          <Route path="/starships" component={Starships} />
-          <Route path="/vehicles" component={Vehicles} />
+          <Route path="/films" component={CustomComponent} />
+          <Route path="/people" component={CustomComponent} />
+          <Route path="/planets" component={CustomComponent} />
+          <Route path="/species" component={CustomComponent} />
+          <Route path="/starships" component={CustomComponent} />
+          <Route path="/vehicles" component={CustomComponent} />
         </Switch>
       </BrowserRouter>
     </>
