@@ -4,6 +4,8 @@ import Home from "../components/Home";
 import CustomComponent from "../components/CustomComponent";
 
 import GlobalStyle from "./globalStyles";
+import NotFound from "../pages/NotFound";
+import Details from "../pages/Details";
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
           <Route path="/species" component={CustomComponent} />
           <Route path="/starships" component={CustomComponent} />
           <Route path="/vehicles" component={CustomComponent} />
+          <Route path="/details/:path?" component={Details} />
+          <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
     </>
