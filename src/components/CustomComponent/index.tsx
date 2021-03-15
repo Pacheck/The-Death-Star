@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import Container from "./styles";
 import Logo from "../../assets/logo/star-wars-2.svg";
 import CustomCard from "../CustomCard";
-import LoadinCard from "../LoadingCard";
 import { APIResponse, Response } from "./types";
 
 const useStyles = makeStyles((theme) =>
@@ -73,11 +72,6 @@ const CustomComponent = () => {
                 isLoading={isLoading}
               />
             );
-
-            // !isLoading ? (
-            // ) : (
-            //   <LoadinCard key={uuidv4()} isLoading={isLoading} />
-            // );
           })}
         </Container>
       )}
