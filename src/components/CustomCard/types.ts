@@ -6,6 +6,11 @@ export interface PropData {
     isLoading: boolean;
 }
 
+export interface DataHelperType {
+    data: Film | Vehicle | Person | Planet | Specie | Starship | any;
+    imageLogo: string;
+}
+
 export interface Dados {
     text1: string;
     text2: string;

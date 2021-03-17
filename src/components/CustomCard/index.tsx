@@ -10,13 +10,14 @@ import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import { PropData, Dados } from "./types";
+import { handleViewData } from "../../helpers/filterCustomData";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
     minWidth: 320,
-    marginTop: 20,
-    margin: 10,
+    minHeight: 300,
+    margin: "10px 5px",
     border: "1px solid lightgray",
   },
   media: {
@@ -33,35 +34,9 @@ const DinamicCard = ({ data, imageLogo, isLoading }: PropData) => {
 
   const history = useHistory();
 
-  const handleViewData = () => {
-    setDados({
-      text1: data.name || data.title || "unknown",
-      text2:
-        data.director ||
-        data.mass ||
-        data.population ||
-        data.classification ||
-        data.crew ||
-        data.model ||
-        "unknown",
-      text3:
-        data.release_date ||
-        data.height ||
-        data.climate ||
-        data.language ||
-        data.max_atmosphering_speed ||
-        data.vehicle_class ||
-        "unknown",
-      text4:
-        data.opening_crawl ||
-        data.birth_year ||
-        data.terrain ||
-        data.skin_colors ||
-        data.cost_in_credits ||
-        data.cost_in_credits ||
-        "unknown",
-      imageLogo: imageLogo,
-    });
+  const handleFilterData = () => {
+    const filteredData = handleViewData({ data, imageLogo });
+    setDados(filteredData);
   };
 
   const handleNavigateToDetails = () => {
@@ -71,7 +46,7 @@ const DinamicCard = ({ data, imageLogo, isLoading }: PropData) => {
   };
 
   useEffect(() => {
-    handleViewData();
+    handleFilterData();
   }, []);
 
   return (
