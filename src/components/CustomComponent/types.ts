@@ -123,7 +123,7 @@ export type Props = {
     count?: number;
     variant: "text" | "outlined" | undefined;
     shape: "round" | "rounded" | undefined;
-  };
+};
 
 export interface APIResponse {
     specie?: Specie;
