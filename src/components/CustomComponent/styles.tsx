@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React from "react";
 import { Props } from "./types";
 import Pagination from "@material-ui/lab/Pagination";
 

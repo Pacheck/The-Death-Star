@@ -8,6 +8,7 @@ import Container from "./styles";
 import Logo from "../../assets/logo/star-wars-2.svg";
 import CustomCard from "../CustomCard";
 import { APIResponse, Response } from "./types";
+import { Backdrop, CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) =>
       display: "flex",
       alignItems: "center",
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
   })
 );
 
@@ -25,7 +30,8 @@ const CustomComponent = () => {
   const [data, setData] = useState<APIResponse[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [openLoader, setOpenLoader] = useState(true);
 
   const fetchData = useApi();
   const params = useParams();
@@ -41,6 +47,7 @@ const CustomComponent = () => {
     console.log(response);
     setData(response.results);
     setIsLoading(false);
+    setOpenLoader(false);
     setTotalPages(Math.ceil(response.count / 10));
   };
 
@@ -50,6 +57,8 @@ const CustomComponent = () => {
   ) => {
     setCurrentPage(value);
   };
+
+  const handleCloseLoader = () => {};
 
   useEffect(() => {
     handleFetchDataFromAPI();
@@ -61,26 +70,32 @@ const CustomComponent = () => {
 
   return (
     <>
-      {!!data && (
-        <Container
-          className={classes.pagination}
-          onChange={handleChangePage}
-          count={totalPages}
-          variant="outlined"
-          shape="rounded"
-        >
-          {data.map((data) => {
-            return (
-              <CustomCard
-                key={uuidv4()}
-                data={data}
-                imageLogo={Logo}
-                isLoading={isLoading}
-              />
-            );
-          })}
-        </Container>
-      )}
+      <Container
+        className={classes.pagination}
+        onChange={handleChangePage}
+        count={totalPages}
+        variant="outlined"
+        shape="rounded"
+      >
+        {data.map((data) => {
+          return (
+            <CustomCard
+              key={uuidv4()}
+              data={data}
+              imageLogo={Logo}
+              isLoading={isLoading}
+            />
+          );
+        })}
+      </Container>
+
+      <Backdrop
+        className={classes.backdrop}
+        open={openLoader}
+        onClick={handleCloseLoader}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 };
